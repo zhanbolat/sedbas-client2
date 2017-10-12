@@ -13,3 +13,4 @@ export class AppComponent {
         translate.use(browserLang.match(/en|fr|ur|es|it|fa/) ? browserLang : 'en');
     }
 }
+export const BONITA_URL = 'http://localhost:8080/bonita';
