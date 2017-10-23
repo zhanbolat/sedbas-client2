@@ -33,39 +33,41 @@ export class UserComponent implements OnInit, AfterViewInit {
     onLoad()  {
         console.log('onLoad ');
         var doc = this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow.document;
-        if (doc.getElementById('LoginHeader') !== null) {
-            doc.getElementById('LoginHeader').style.display = 'none';
-            console.log('disable login header');
-        }
-        if (doc.body.querySelector('#logo') !== null) {
-            doc.body.querySelector('#logo').style.display = 'none';
-            console.log('disable logo');
-        }
-        if (doc.body.querySelector('#LoginFormContainer') !== null) {
-            doc.body.querySelector('#LoginFormContainer').style.width = '300px';
-            console.log('resize login form controller');
-        }
-
-        if (doc.getElementById('login') !== null) {
-            doc.getElementById('login').style.display = 'none';
-        }
+        // if (doc.getElementById('LoginHeader') !== null) {
+        //     doc.getElementById('LoginHeader').style.display = 'none';
+        //     console.log('disable login header');
+        // }
+        // if (doc.body.querySelector('#logo') !== null) {
+        //     doc.body.querySelector('#logo').style.display = 'none';
+        //     console.log('disable logo');
+        // }
+        // if (doc.body.querySelector('#LoginFormContainer') !== null) {
+        //     doc.body.querySelector('#LoginFormContainer').style.width = '300px';
+        //     console.log('resize login form controller');
+        // }
+        //
+        // if (doc.getElementById('login') !== null) {
+        //     doc.getElementById('login').style.display = 'none';
+        // }
         if (doc.getElementById('menu') !== null) {
             doc.getElementById('menu').style.background = '#292b2c';
         }
-        console.log('scroll height0: ', doc.body.scrollHeight);
+        // console.log('scroll height0: ', doc.body.scrollHeight);
 
-        setTimeout(() =>
+        // this.iframe.nativeElement.height = doc.body.scrollHeight + 'px';
+
+        const timerId = setInterval(() =>
             {
-                // this.iframe.nativeElement.height = doc.body.scrollHeight + 'px';
                 if (doc.body.querySelector('#ProfileLink_User') !== null) {
                     doc.body.querySelector('#ProfileLink_User').click();
+                    this.showFrame = true;
+                    clearInterval(timerId);
                 }
-                this.showFrame = true;
                 // console.log('menu: ', doc.body.querySelector('#menu'));
                 // console.log(doc.body.querySelectorAll('#menu .dropdownmenu li a'));
                 // console.log(doc.body.querySelector('#menu').querySelector('.dropdownmenu'));
                 // console.log(doc.body.querySelector('#menu').querySelectorAll('a'));
             },
-            2000);
+            100);
     }
 }
