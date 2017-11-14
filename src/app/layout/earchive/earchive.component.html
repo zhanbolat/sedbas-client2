@@ -1,0 +1,66 @@
+<div>
+    <h2>
+        <span jhiTranslate="blogApp.blog.home.title">Blogs</span>
+        <button class="btn btn-primary float-right create-blog" [routerLink]="['/', { outlets: { popup: ['blog-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="blogApp.blog.home.createLabel">
+            Create new Blog
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="blanks">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="blogApp.blog.name">Manufacturer</span></th>
+            <th><span jhiTranslate="blogApp.blog.handle">Exemplar</span></th>
+            <th><span jhiTranslate="blogApp.blog.user">Type</span></th>
+            <th><span jhiTranslate="blogApp.blog.user">Status</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let blank of blanks ;trackBy: trackId">
+                <td><a [routerLink]="['../blog', blank.blankid ]">{{blank.blankid}}</a></td>
+                <td>{{blank.manufacturer}}</td>
+                <td>{{blank.exemplarcount}}</td>
+                <td>
+                    {{blank.blanktypeByBlanktype?.runame}}
+                </td>
+                <td>
+                    {{blank.blankstatusByBlankstatus?.runame}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../blog', blank.blankid ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'blog/'+ blank.blankid + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'blog/'+ blank.blankid + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+
+<div *ngIf="blank" style="margin: 20px 40px !important;">
+    <h2><span jhiTranslate="blogApp.blog.detail.title">Archive blank</span> {{blank.blankid}}</h2>
+    <hr>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="blogApp.blog.name">Manufacturer</span></dt>
+        <dd>
+            <span>{{blank.manufacturer}}</span>
+        </dd>
+        <dt><span jhiTranslate="blogApp.blog.handle">Exemplar</span></dt>
+        <dd>
+            <span>{{blank.exemplarcount}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Назад</span>
+    </button>
+    <!--<button type="button"-->
+            <!--[routerLink]="['/archive', { outlets: { popup: 'blank/'+ blank.blankid + '/edit'} }]"-->
+            <!--replaceUrl="true"-->
+            <!--class="btn btn-primary">-->
+        <!--<span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Изменить</span>-->
+    <!--</button>-->
+</div>

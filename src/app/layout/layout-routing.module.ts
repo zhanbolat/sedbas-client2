@@ -11,6 +11,7 @@ const routes: Routes = [
             { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
             { path: 'profile', loadChildren: './profile/profile.module#ProfileModule' },
             { path: 'archive', loadChildren: './archive/archive.module#ArchiveModule' }
+            // { path: 'archive', loadChildren: './earchive/earchive.module#BlogBlogModule' }
             // { path: 'charts', loadChildren: './charts/charts.module#ChartsModule' },
             // { path: 'tables', loadChildren: './tables/tables.module#TablesModule' },
             // { path: 'forms', loadChildren: './form/form.module#FormModule' },

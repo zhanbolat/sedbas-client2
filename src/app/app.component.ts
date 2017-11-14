@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -13,4 +13,4 @@ export class AppComponent {
         translate.use(browserLang.match(/en|fr|ur|es|it|fa/) ? browserLang : 'en');
     }
 }
-export const BONITA_URL = 'http://localhost:8080/bonita';
+export const BONITA_URL = 'http://172.20.0.123:8080/bonita';

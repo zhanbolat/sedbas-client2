@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import {AuthService} from '../../services/auth.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
     selector: 'app-header',
@@ -23,18 +23,18 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.authService.getCurrentSession().subscribe(session => {
-            this.username = session.user_name;
-            this.user_id = session.user_id;
-            if (session.user_id === null) {
-                localStorage.removeItem('isLoggedin');
-                this.router.navigate(['/login']);
-            }
-        }, error2 => {
-            console.log('Error while getting session', error2.message);
-            localStorage.removeItem('isLoggedin');
-            this.router.navigate(['/login']);
-        });
+        // this.authService.getCurrentSession().subscribe(session => {
+        //     this.username = session.user_name;
+        //     this.user_id = session.user_id;
+        //     if (session.user_id === null) {
+        //         localStorage.removeItem('isLoggedin');
+        //         this.router.navigate(['/login']);
+        //     }
+        // }, error2 => {
+        //     console.log('Error while getting session', error2.message);
+        //     localStorage.removeItem('isLoggedin');
+        //     this.router.navigate(['/login']);
+        // });
     }
     //
     // private getCookie(name: string) {

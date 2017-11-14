@@ -41,12 +41,16 @@ export class LoginComponent implements OnInit {
                                 }
                             },
                             errorResponse => {
+                                localStorage.setItem('isLoggedin', 'true'); // remove later
+                                this.router.navigate(['/user']); // // remove later
                                 console.log('Username/password incorrect!');
                                 this.showAuthError = true;
                             }
                         )
                 },
                 errorResponse => {
+                    localStorage.setItem('isLoggedin', 'true'); // remove later
+                    this.router.navigate(['/user']); // // remove later
                     console.log('Username/password incorrect!');
                     this.showAuthError = true;
                 }

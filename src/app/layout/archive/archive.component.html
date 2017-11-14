@@ -1,39 +1,354 @@
 <div [@routerTransition]>
-    <div>
-        <div class="card-header">
-            Archive example page
-        </div>
-        <div class="card-block table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="card-header">
+        Архивная информация
+    </div>
+    <div class="archive-container">
+        <ngb-tabset [activeId]="activeIdString" #tabset="ngbTabset">
+            <ngb-tab id="inboxTab">
+                <ng-template ngbTabTitle>
+                    <div (click)="changeTab('inboxTab')">
+                        Входящие заявки
+                    </div>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <div class="card-block table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Номер</th>
+                                <th>Дата</th>
+                                <th>От</th>
+                                <th>Исполнитель</th>
+                                <th>Дата исполнения</th>
+                                <th>Тип</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let inbox of inboxes ;trackBy: trackInboxId">
+                                <td><a [routerLink]="['./inbox', inbox.inboxid ]">{{inbox.inboxnumber}}</a></td>
+                                <td>{{inbox.documentdate}}</td>
+                                <td>{{inbox.fromwhoom}}</td>
+                                <td>{{inbox.executorfullname}}</td>
+                                <td>{{inbox.executerdate}}</td>
+                                <td>
+                                    {{inbox.inboxtypeByDocumenttype?.runame}}
+                                </td>
+                                <td class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit"
+                                                [routerLink]="['./inbox', inbox.inboxid ]"
+                                                class="btn btn-info btn-sm">
+                                            <span class="fa fa-eye"></span>
+                                            <span class="hidden-md-down" jhiTranslate="entity.action.view">Детали</span>
+                                        </button>
+                                        <button type="submit"
+                                                [routerLink]="['./', { outlets: { popup: 'inbox/'+ inbox.inboxid + '/edit'} }]"
+                                                replaceUrl="true"
+                                                class="btn btn-primary btn-sm">
+                                            <span class="fa fa-pencil"></span>
+                                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Изменить</span>
+                                        </button>
+                                        <button type="submit"
+                                                [routerLink]="['./', { outlets: { popup: 'inbox/'+ inbox.inboxid + '/delete'} }]"
+                                                replaceUrl="true"
+                                                class="btn btn-danger btn-sm">
+                                            <span class="fa fa-remove"></span>
+                                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Удалить</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="outboxTab">
+                <ng-template ngbTabTitle>
+                    <div (click)="changeTab('outboxTab')">Исходящие заявки</div>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <div class="card-block table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Номер</th>
+                                <th>Дата</th>
+                                <th>Кому</th>
+                                <th>Номер входящей заявки</th>
+                                <th>Отправитель</th>
+                                <th>Тип</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let outbox of outboxes ;trackBy: trackOutboxId">
+                                <td><a [routerLink]="['./outbox', outbox.outboxid ]">{{outbox.outboxnumber}}</a></td>
+                                <td>{{outbox.documentdate}}</td>
+                                <td>{{outbox.forwhom}}</td>
+                                <td>{{outbox.inboxnumber}}</td>
+                                <td>{{outbox.docownerfullname}}</td>
+                                <td>
+                                    {{outbox.outboxtypeByDocumenttype?.runame}}
+                                </td>
+                                <td class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit"
+                                                [routerLink]="['./outbox', outbox.outboxid ]"
+                                                class="btn btn-info btn-sm">
+                                            <span class="fa fa-eye"></span>
+                                            <span class="hidden-md-down" jhiTranslate="entity.action.view">Детали</span>
+                                        </button>
+                                        <button type="submit"
+                                                [routerLink]="['./', { outlets: { popup: 'outbox/'+ outbox.outboxid + '/edit'} }]"
+                                                replaceUrl="true"
+                                                class="btn btn-primary btn-sm">
+                                            <span class="fa fa-pencil"></span>
+                                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Изменить</span>
+                                        </button>
+                                        <button type="submit"
+                                                [routerLink]="['./', { outlets: { popup: 'outbox/'+ outbox.outboxid + '/delete'} }]"
+                                                replaceUrl="true"
+                                                class="btn btn-danger btn-sm">
+                                            <span class="fa fa-remove"></span>
+                                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Удалить</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="innerTab">
+                <ng-template ngbTabTitle>
+                    <div (click)="changeTab('innerTab')">Внутренние заявки</div>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <div class="card-block table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Номер</th>
+                                <th>Дата</th>
+                                <th>Ответственный</th>
+                                <th>Исполнитель</th>
+                                <th>Дата исполнения</th>
+                                <th>Тип</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let innerbox of innerboxes ;trackBy: trackInnerboxId">
+                                <td><a [routerLink]="['./innerbox', innerbox.innerboxid ]">{{innerbox.innerboxnumber}}</a></td>
+                                <td>{{innerbox.documentdate}}</td>
+                                <td>{{innerbox.reporterfullname}}</td>
+                                <td>{{innerbox.executorfullname}}</td>
+                                <td>{{innerbox.executerdate}}</td>
+                                <td>
+                                    {{innerbox.innerboxtypeByDocumenttype?.runame}}
+                                </td>
+                                <td class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit"
+                                                [routerLink]="['./innerbox', innerbox.innerboxid ]"
+                                                class="btn btn-info btn-sm">
+                                            <span class="fa fa-eye"></span>
+                                            <span class="hidden-md-down" jhiTranslate="entity.action.view">Детали</span>
+                                        </button>
+                                        <button type="submit"
+                                                [routerLink]="['./', { outlets: { popup: 'innerbox/'+ innerbox.innerboxid + '/edit'} }]"
+                                                replaceUrl="true"
+                                                class="btn btn-primary btn-sm">
+                                            <span class="fa fa-pencil"></span>
+                                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Изменить</span>
+                                        </button>
+                                        <button type="submit"
+                                                [routerLink]="['./', { outlets: { popup: 'innerbox/'+ innerbox.innerboxid + '/delete'} }]"
+                                                replaceUrl="true"
+                                                class="btn btn-danger btn-sm">
+                                            <span class="fa fa-remove"></span>
+                                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Удалить</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="blankTab">
+                <ng-template ngbTabTitle>
+                    <div (click)="changeTab('blankTab')">Бланки</div>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <div class="card-block table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Номер</th>
+                                <th>Изготовитель</th>
+                                <th>Экземляр</th>
+                                <th>Тип</th>
+                                <th>Статус</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let blank of blanks ;trackBy: trackId">
+                                <td><a [routerLink]="['./blank', blank.blankid ]">{{blank.blankid}}</a></td>
+                                <td>{{blank.manufacturer}}</td>
+                                <td>{{blank.exemplarcount}}</td>
+                                <td>
+                                    {{blank.blanktypeByBlanktype?.runame}}
+                                </td>
+                                <td>
+                                    {{blank.blankstatusByBlankstatus?.runame}}
+                                </td>
+                                <td class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit"
+                                                [routerLink]="['./blank', blank.blankid ]"
+                                                class="btn btn-info btn-sm">
+                                            <span class="fa fa-eye"></span>
+                                            <span class="hidden-md-down" jhiTranslate="entity.action.view">Детали</span>
+                                        </button>
+                                        <button type="submit"
+                                                [routerLink]="['./', { outlets: { popup: 'blank/'+ blank.blankid + '/edit'} }]"
+                                                replaceUrl="true"
+                                                class="btn btn-primary btn-sm">
+                                            <span class="fa fa-pencil"></span>
+                                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Изменить</span>
+                                        </button>
+                                        <button type="submit"
+                                                [routerLink]="['./', { outlets: { popup: 'blank/'+ blank.blankid + '/delete'} }]"
+                                                replaceUrl="true"
+                                                class="btn btn-danger btn-sm">
+                                            <span class="fa fa-remove"></span>
+                                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Удалить</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="requestTab">
+                <ng-template ngbTabTitle>
+                    <div (click)="changeTab('requestTab')">Обращения</div>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <div class="card-block table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Номер</th>
+                                <th>Кому</th>
+                                <th>Исполнитель</th>
+                                <th>Дата исполнения</th>
+                                <th>Адрес</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let request of peoplerequests ;trackBy: trackPeopleRequestId">
+                                <td><a [routerLink]="['./peoplerequest', request.peoplerequestid ]">{{request.documentnumber}}</a></td>
+                                <td>{{request.forwhoom}}</td>
+                                <td>{{request.executorfullname}}</td>
+                                <td>{{request.executerdate}}</td>
+                                <td>{{request.address}}</td>
+                                <td class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit"
+                                                [routerLink]="['./peoplerequest', request.peoplerequestid ]"
+                                                class="btn btn-info btn-sm">
+                                            <span class="fa fa-eye"></span>
+                                            <span class="hidden-md-down" jhiTranslate="entity.action.view">Детали</span>
+                                        </button>
+                                        <button type="submit"
+                                                [routerLink]="['./', { outlets: { popup: 'peoplerequest/'+ request.peoplerequestid + '/edit'} }]"
+                                                replaceUrl="true"
+                                                class="btn btn-primary btn-sm">
+                                            <span class="fa fa-pencil"></span>
+                                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Изменить</span>
+                                        </button>
+                                        <button type="submit"
+                                                [routerLink]="['./', { outlets: { popup: 'peoplerequest/'+ request.peoplerequestid + '/delete'} }]"
+                                                replaceUrl="true"
+                                                class="btn btn-danger btn-sm">
+                                            <span class="fa fa-remove"></span>
+                                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Удалить</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="sRequestTab">
+                <ng-template ngbTabTitle>
+                    <div (click)="changeTab('sRequestTab')">Заявки</div>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <div class="card-block table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Номер</th>
+                                <th>Дата</th>
+                                <th>ФИО студента</th>
+                                <th>Email</th>
+                                <th>Номер телефона</th>
+                                <th>Специальность</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let request of requests ;trackBy: trackRequestId">
+                                <td><a [routerLink]="['./request', request.id ]">{{request.studentid}}</a></td>
+                                <td>{{request.appdate}}</td>
+                                <td>{{request.studentsurname}} {{request.studentname}} {{request.studentlastname}}</td>
+                                <td>{{request.studentemail}}</td>
+                                <td>{{request.studentphone}}</td>
+                                <td>{{request.studentspecialitycode}} - {{request.studentspeciality}}</td>
+                                <td class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit"
+                                                [routerLink]="['./request', request.id ]"
+                                                class="btn btn-info btn-sm">
+                                            <span class="fa fa-eye"></span>
+                                            <span class="hidden-md-down" jhiTranslate="entity.action.view">Детали</span>
+                                        </button>
+                                        <button type="submit"
+                                                [routerLink]="['./', { outlets: { popup: 'request/'+ request.id + '/edit'} }]"
+                                                replaceUrl="true"
+                                                class="btn btn-primary btn-sm">
+                                            <span class="fa fa-pencil"></span>
+                                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Изменить</span>
+                                        </button>
+                                        <button type="submit"
+                                                [routerLink]="['./', { outlets: { popup: 'request/'+ request.id + '/delete'} }]"
+                                                replaceUrl="true"
+                                                class="btn btn-danger btn-sm">
+                                            <span class="fa fa-remove"></span>
+                                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Удалить</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+        </ngb-tabset>
+
     </div>
 </div>
