@@ -10,7 +10,7 @@
 //
 // @Component({
 //     selector: 'jhi-blog-delete-dialog',
-//     templateUrl: './archive-blank-delete-dialog.component.html'
+//     templateUrl: './archive-inbox-delete-dialog.component.html'
 // })
 // export class BlogDeleteDialogComponent {
 //

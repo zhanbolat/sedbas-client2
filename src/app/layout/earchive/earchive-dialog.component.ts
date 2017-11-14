@@ -12,7 +12,7 @@
 //
 // @Component({
 //     selector: 'jhi-blog-dialog',
-//     templateUrl: './archive-blank-dialog.component.html'
+//     templateUrl: './archive-inbox-dialog.component.html'
 // })
 // export class BlogDialogComponent implements OnInit {
 //

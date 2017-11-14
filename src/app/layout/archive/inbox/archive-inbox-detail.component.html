@@ -1,0 +1,37 @@
+
+<div *ngIf="inbox" style="margin: 20px 40px !important;">
+    <h2><span>Входящая заявка</span> {{inbox.inboxid}}</h2>
+    <hr>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Дата заявки</span></dt>
+        <dd>
+            <span>{{inbox.documentdate}}</span>
+        </dd>
+        <dt><span>От кого</span></dt>
+        <dd>
+            <span>{{inbox.fromwhoom}}</span>
+        </dd>
+        <dt><span>Исполнитель</span></dt>
+        <dd>
+            <span>{{inbox.executorfullname}}</span>
+        </dd>
+        <dt><span>Дата исполнения</span></dt>
+        <dd>
+            <span>{{inbox.executerdate}}</span>
+        </dd>
+        <dt><span>Тип</span></dt>
+        <dd>
+            <span>{{inbox.inboxtypeByDocumenttype?.runame}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" class="btn btn-info" (click)="previousState()">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Назад</span>
+    </button>
+    <!--<button type="button"-->
+            <!--[routerLink]="['/archive', { outlets: { popup: 'inbox/'+ inbox.inboxid + '/edit'} }]"-->
+            <!--replaceUrl="true"-->
+            <!--class="btn btn-primary">-->
+        <!--<span class="fa fa-pencil"></span>&nbsp;<span> Изменить</span>-->
+    <!--</button>-->
+</div>

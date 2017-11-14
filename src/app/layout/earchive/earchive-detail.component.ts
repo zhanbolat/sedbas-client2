@@ -8,7 +8,7 @@
 //
 // @Component({
 //     selector: 'jhi-blog-detail',
-//     templateUrl: './archive-blank-detail.component.html'
+//     templateUrl: './archive-inbox-detail.component.html'
 // })
 // export class BlogDetailComponent implements OnInit, OnDestroy {
 //

@@ -1,0 +1,32 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <div class="modal-header">
+        <h4 class="modal-title" id="myBlogLabel">Создание/изменение входящей заявки</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group" [hidden]="!inbox.inboxid">
+            <label for="id">ID</label>
+            <input class="form-control" id="id" name="id" [(ngModel)]="inbox.inboxid" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="fromwhoom">От кого</label>
+            <input class="form-control" name="fromwhoom" id="fromwhoom" [(ngModel)]="inbox.fromwhoom" required/>
+
+            <div [hidden]="!(editForm.controls.fromwhoom?.dirty && editForm.controls.fromwhoom?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.fromwhoom?.errors?.required">
+                    Обязательное поле
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Отмена</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Сохранить</span>
+        </button>
+    </div>
+</form>
+

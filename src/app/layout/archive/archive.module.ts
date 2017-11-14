@@ -24,6 +24,12 @@ import {
     ArchiveBlankDeleteDialogComponent,
     ArchiveBlankDeletePopupComponent
 } from './blank/archive-blank-delete-dialog.component';
+import {ArchiveInboxDialogComponent, ArchiveInboxPopupComponent} from "./inbox/archive-inbox-dialog.component";
+import {
+    ArchiveInboxDeleteDialogComponent,
+    ArchiveInboxDeletePopupComponent
+} from "./inbox/archive-inbox-delete-dialog.component";
+import {ArchiveInboxDetailComponent} from "./inbox/archive-inbox-detail.component";
 
 // export function alertServiceProvider(sanitizer: Sanitizer, translateService: TranslateService) {
 //     // set below to true to make alerts look like toast
@@ -96,6 +102,10 @@ import {
         ArchiveBlankPopupComponent,
         ArchiveBlankDeleteDialogComponent,
         ArchiveBlankDeletePopupComponent,
+        ArchiveInboxDialogComponent,
+        ArchiveInboxPopupComponent,
+        ArchiveInboxDeleteDialogComponent,
+        ArchiveInboxDeletePopupComponent,
     ],
   declarations: [ArchiveComponent,
       ArchiveDetailComponent,
@@ -103,6 +113,11 @@ import {
       ArchiveBlankPopupComponent,
       ArchiveBlankDeleteDialogComponent,
       ArchiveBlankDeletePopupComponent,
+      ArchiveInboxDetailComponent,
+      ArchiveInboxDialogComponent,
+      ArchiveInboxPopupComponent,
+      ArchiveInboxDeleteDialogComponent,
+      ArchiveInboxDeletePopupComponent,
       JhiAlertComponent,
       JhiAlertErrorComponent
   ],
