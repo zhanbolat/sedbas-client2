@@ -1,0 +1,37 @@
+
+<div *ngIf="innerbox" style="margin: 20px 40px !important;">
+    <h2><span>Внутренняя заявка</span> {{innerbox.innerboxnumber}}</h2>
+    <hr>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Дата заявки</span></dt>
+        <dd>
+            <span>{{innerbox.documentdate}}</span>
+        </dd>
+        <dt><span>Ответственный</span></dt>
+        <dd>
+            <span>{{innerbox.reporterfullname}}</span>
+        </dd>
+        <dt><span>Исполнитель</span></dt>
+        <dd>
+            <span>{{innerbox.executorfullname}}</span>
+        </dd>
+        <dt><span>Дата исполнения</span></dt>
+        <dd>
+            <span>{{innerbox.executerdate}}</span>
+        </dd>
+        <dt><span>Тип</span></dt>
+        <dd>
+            <span>{{innerbox.innerboxtypeByDocumenttype?.runame}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" class="btn btn-info" (click)="previousState()">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Назад</span>
+    </button>
+    <!--<button type="button"-->
+            <!--[routerLink]="['/archive', { outlets: { popup: 'innerbox/'+ innerbox.innerboxid + '/edit'} }]"-->
+            <!--replaceUrl="true"-->
+            <!--class="btn btn-primary">-->
+        <!--<span class="fa fa-pencil"></span>&nbsp;<span> Изменить</span>-->
+    <!--</button>-->
+</div>

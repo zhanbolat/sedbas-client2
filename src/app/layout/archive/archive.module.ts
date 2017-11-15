@@ -24,12 +24,45 @@ import {
     ArchiveBlankDeleteDialogComponent,
     ArchiveBlankDeletePopupComponent
 } from './blank/archive-blank-delete-dialog.component';
-import {ArchiveInboxDialogComponent, ArchiveInboxPopupComponent} from "./inbox/archive-inbox-dialog.component";
+import {ArchiveInboxDialogComponent, ArchiveInboxPopupComponent} from './inbox/archive-inbox-dialog.component';
 import {
     ArchiveInboxDeleteDialogComponent,
     ArchiveInboxDeletePopupComponent
-} from "./inbox/archive-inbox-delete-dialog.component";
-import {ArchiveInboxDetailComponent} from "./inbox/archive-inbox-detail.component";
+} from './inbox/archive-inbox-delete-dialog.component';
+import {ArchiveInboxDetailComponent} from './inbox/archive-inbox-detail.component';
+import {
+    ArchiveInnerboxDialogComponent,
+    ArchiveInnerboxPopupComponent
+} from './innerbox/archive-innerbox-dialog.component';
+import {
+    ArchiveInnerboxDeleteDialogComponent,
+    ArchiveInnerboxDeletePopupComponent
+} from './innerbox/archive-innerbox-delete-dialog.component';
+import {ArchiveInnerboxDetailComponent} from './innerbox/archive-innerbox-detail.component';
+import {ArchiveOutboxDetailComponent} from './outbox/archive-outbox-detail.component';
+import {ArchiveOutboxDialogComponent, ArchiveOutboxPopupComponent} from './outbox/archive-outbox-dialog.component';
+import {
+    ArchiveOutboxDeleteDialogComponent,
+    ArchiveOutboxDeletePopupComponent
+} from './outbox/archive-outbox-delete-dialog.component';
+import {ArchivePeopleRequestDetailComponent} from './peoplerequest/archive-peoplerequest-detail.component';
+import {
+    ArchivePeopleRequestDialogComponent,
+    ArchivePeopleRequestPopupComponent
+} from './peoplerequest/archive-peoplerequest-dialog.component';
+import {
+    ArchivePeopleRequestDeleteDialogComponent,
+    ArchivePeopleRequestDeletePopupComponent
+} from './peoplerequest/archive-peoplerequest-delete-dialog.component';
+import {ArchiveRequestDetailComponent} from './request/archive-request-detail.component';
+import {ArchiveRequestDialogComponent, ArchiveRequestPopupComponent} from './request/archive-request-dialog.component';
+import {
+    ArchiveRequestDeleteDialogComponent,
+    ArchiveRequestDeletePopupComponent
+} from './request/archive-request-delete-dialog.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {Ng2OrderModule} from "ng2-order-pipe";
+
 
 // export function alertServiceProvider(sanitizer: Sanitizer, translateService: TranslateService) {
 //     // set below to true to make alerts look like toast
@@ -55,7 +88,9 @@ import {ArchiveInboxDetailComponent} from "./inbox/archive-inbox-detail.componen
       NgbModule,
       FormsModule,
       ArchiveRoutingModule,
-      NgbModule.forRoot()
+      NgbModule.forRoot(),
+      NgxPaginationModule,
+      Ng2OrderModule
       // TranslateModule.forRoot({
       //     loader: {
       //         provide: TranslateLoader,
@@ -106,6 +141,22 @@ import {ArchiveInboxDetailComponent} from "./inbox/archive-inbox-detail.componen
         ArchiveInboxPopupComponent,
         ArchiveInboxDeleteDialogComponent,
         ArchiveInboxDeletePopupComponent,
+        ArchiveInnerboxDialogComponent,
+        ArchiveInnerboxPopupComponent,
+        ArchiveInnerboxDeleteDialogComponent,
+        ArchiveInnerboxDeletePopupComponent,
+        ArchiveOutboxDialogComponent,
+        ArchiveOutboxPopupComponent,
+        ArchiveOutboxDeleteDialogComponent,
+        ArchiveOutboxDeletePopupComponent,
+        ArchivePeopleRequestDialogComponent,
+        ArchivePeopleRequestPopupComponent,
+        ArchivePeopleRequestDeleteDialogComponent,
+        ArchivePeopleRequestDeletePopupComponent,
+        ArchiveRequestDialogComponent,
+        ArchiveRequestPopupComponent,
+        ArchiveRequestDeleteDialogComponent,
+        ArchiveRequestDeletePopupComponent,
     ],
   declarations: [ArchiveComponent,
       ArchiveDetailComponent,
@@ -118,6 +169,26 @@ import {ArchiveInboxDetailComponent} from "./inbox/archive-inbox-detail.componen
       ArchiveInboxPopupComponent,
       ArchiveInboxDeleteDialogComponent,
       ArchiveInboxDeletePopupComponent,
+      ArchiveInnerboxDetailComponent,
+      ArchiveInnerboxDialogComponent,
+      ArchiveInnerboxPopupComponent,
+      ArchiveInnerboxDeleteDialogComponent,
+      ArchiveInnerboxDeletePopupComponent,
+      ArchiveOutboxDetailComponent,
+      ArchiveOutboxDialogComponent,
+      ArchiveOutboxPopupComponent,
+      ArchiveOutboxDeleteDialogComponent,
+      ArchiveOutboxDeletePopupComponent,
+      ArchivePeopleRequestDetailComponent,
+      ArchivePeopleRequestDialogComponent,
+      ArchivePeopleRequestPopupComponent,
+      ArchivePeopleRequestDeleteDialogComponent,
+      ArchivePeopleRequestDeletePopupComponent,
+      ArchiveRequestDetailComponent,
+      ArchiveRequestDialogComponent,
+      ArchiveRequestPopupComponent,
+      ArchiveRequestDeleteDialogComponent,
+      ArchiveRequestDeletePopupComponent,
       JhiAlertComponent,
       JhiAlertErrorComponent
   ],

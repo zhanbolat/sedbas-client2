@@ -16,7 +16,7 @@ import {ArchRequest} from '../../shared/model/arch-request';
 @Injectable()
 export class ArchivePopupService {
     private isOpen = false;
-    doc: any;
+    // doc: any;
 
     constructor(
         private modalService: NgbModal,
@@ -39,12 +39,12 @@ export class ArchivePopupService {
         switch (type) {
             case 'inbox': {
                 if (id) {
-                    this.doc = {inboxid: 3, inboxnumber: 11231231, fromwhoom: 'Zzzg ssss', executorfullname: 'ad asd kjas'};
-                    this.blogModalRef(component, this.doc, type);
+                    // this.doc = {inboxid: 3, inboxnumber: 11231231, fromwhoom: 'Zzzg ssss', executorfullname: 'ad asd kjas'};
+                    // this.blogModalRef(component, this.doc, type);
 
-                    // this.inboxService.find(id).subscribe((res) => {
-                    //     this.blogModalRef(component, res, type);
-                    // });
+                    this.inboxService.find(id).subscribe((res) => {
+                        this.blogModalRef(component, res, type);
+                    });
                 } else {
                     return this.blogModalRef(component, new ArchInbox(), type);
                 }
@@ -52,12 +52,12 @@ export class ArchivePopupService {
             }
             case 'outbox': {
                 if (id) {
-                    this.doc = {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'};
-                    this.blogModalRef(component, this.doc, type);
+                    // this.doc = {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'};
+                    // this.blogModalRef(component, this.doc, type);
 
-                    // this.outboxService.find(id).subscribe((res) => {
-                    //     this.blogModalRef(component, res, type);
-                    // });
+                    this.outboxService.find(id).subscribe((res) => {
+                        this.blogModalRef(component, res, type);
+                    });
                 } else {
                     return this.blogModalRef(component, new ArchOutbox(), type);
                 }
@@ -65,12 +65,12 @@ export class ArchivePopupService {
             }
             case 'innerbox': {
                 if (id) {
-                    this.doc = {innerboxid: 1, innerboxnumber: 12222241, reporterfullname: 'Reporter1', executorfullname: 'qqq ad kjas'};
-                    this.blogModalRef(component, this.doc, type);
+                    // this.doc = {innerboxid: 1, innerboxnumber: 12222241, reporterfullname: 'Reporter1', executorfullname: 'qqq ad kjas'};
+                    // this.blogModalRef(component, this.doc, type);
 
-                    // this.innerboxService.find(id).subscribe((res) => {
-                    //     this.blogModalRef(component, res, type);
-                    // });
+                    this.innerboxService.find(id).subscribe((res) => {
+                        this.blogModalRef(component, res, type);
+                    });
                 } else {
                     return this.blogModalRef(component, new ArchInnerbox(), type);
                 }
@@ -78,12 +78,12 @@ export class ArchivePopupService {
             }
             case 'blank': {
                 if (id) {
-                    this.doc = {blankid: id, blanktype: 1, manufacturer: 'manufacturer1_update', exemplarcount: 5};
-                    this.blogModalRef(component, this.doc, type);
+                    // this.doc = {blankid: id, blanktype: 1, manufacturer: 'manufacturer1_update', exemplarcount: 5};
+                    // this.blogModalRef(component, this.doc, type);
 
-                    // this.blankService.find(id).subscribe((blank) => {
-                    //     this.blogModalRef(component, blank, type);
-                    // });
+                    this.blankService.find(id).subscribe((blank) => {
+                        this.blogModalRef(component, blank, type);
+                    });
                 } else {
                     return this.blogModalRef(component, new ArchBlank(), type);
                 }
@@ -91,13 +91,13 @@ export class ArchivePopupService {
             }
             case 'peoplerequest': {
                 if (id) {
-                    this.doc = {peoplerequestid: 10, documentnumber: '12222222', forwhoom: 'David', executorfullname: 'Name 1',
-                        address: 'Address 1, US'};
-                    this.blogModalRef(component, this.doc, type);
+                    // this.doc = {peoplerequestid: 10, documentnumber: '12222222', forwhoom: 'David', executorfullname: 'Name 1',
+                    //     address: 'Address 1, US'};
+                    // this.blogModalRef(component, this.doc, type);
 
-                    // this.peopleRequestService.find(id).subscribe((res) => {
-                    //     this.blogModalRef(component, res, type);
-                    // });
+                    this.peopleRequestService.find(id).subscribe((res) => {
+                        this.blogModalRef(component, res, type);
+                    });
                 } else {
                     return this.blogModalRef(component, new ArchPeopleRequest(), type);
                 }
@@ -105,13 +105,13 @@ export class ArchivePopupService {
             }
             case 'request': {
                 if (id) {
-                    this.doc = {id: 1, studentid: 1111, studentsurname: 'Smith', studentname: 'name2 ', studentlastname: 'lastName ',
-                        studentspecialitycode: 'QYAS123', studentspeciality: 'CSSE'};
-                    this.blogModalRef(component, this.doc, type);
+                    // this.doc = {id: 1, studentid: 1111, studentsurname: 'Smith', studentname: 'name2 ', studentlastname: 'lastName ',
+                    //     studentspecialitycode: 'QYAS123', studentspeciality: 'CSSE'};
+                    // this.blogModalRef(component, this.doc, type);
 
-                    // this.requestService.find(id).subscribe((res) => {
-                    //     this.blogModalRef(component, res, type);
-                    // });
+                    this.requestService.find(id).subscribe((res) => {
+                        this.blogModalRef(component, res, type);
+                    });
                 } else {
                     return this.blogModalRef(component, new ArchRequest(), type);
                 }
@@ -153,7 +153,7 @@ export class ArchivePopupService {
         modalRef.result.then((result) => {
             console.log('modalRef in result1: ' + result);
             this.router.navigate(['/archive'], { replaceUrl: true });
-            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
+            // this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
             this.isOpen = false;
         }, (reason) => {
             console.log('modalRef in result2: ' + reason);

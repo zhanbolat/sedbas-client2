@@ -1,0 +1,37 @@
+
+<div *ngIf="peoplerequest" style="margin: 20px 40px !important;">
+    <h2><span>Входящая заявка</span> {{peoplerequest.peoplerequestid}}</h2>
+    <hr>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Номер</span></dt>
+        <dd>
+            <span>{{peoplerequest.documentnumber}}</span>
+        </dd>
+        <dt><span>Кому</span></dt>
+        <dd>
+            <span>{{peoplerequest.forwhoom}}</span>
+        </dd>
+        <dt><span>Исполнитель</span></dt>
+        <dd>
+            <span>{{peoplerequest.executorfullname}}</span>
+        </dd>
+        <dt><span>Дата исполнения</span></dt>
+        <dd>
+            <span>{{peoplerequest.executerdate}}</span>
+        </dd>
+        <dt><span>Адрес</span></dt>
+        <dd>
+            <span>{{peoplerequest.address}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" class="btn btn-info" (click)="previousState()">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Назад</span>
+    </button>
+    <!--<button type="button"-->
+            <!--[routerLink]="['/archive', { outlets: { popup: 'peoplerequest/'+ peoplerequest.peoplerequestid + '/edit'} }]"-->
+            <!--replaceUrl="true"-->
+            <!--class="btn btn-primary">-->
+        <!--<span class="fa fa-pencil"></span>&nbsp;<span> Изменить</span>-->
+    <!--</button>-->
+</div>

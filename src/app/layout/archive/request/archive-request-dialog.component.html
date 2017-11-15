@@ -1,0 +1,44 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <div class="modal-header">
+        <h4 class="modal-title" id="myBlogLabel">Изменение заявления студента</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group" [hidden]="!request.id">
+            <label for="id">ID</label>
+            <input class="form-control" id="id" name="id" [(ngModel)]="request.id" readonly />
+        </div>
+        <div class="form-group" [hidden]="!request.studentsurname">
+            <label for="id">Фамилия</label>
+            <input class="form-control" id="studentsurname" name="studentsurname" [(ngModel)]="request.studentsurname" readonly />
+        </div>
+        <div class="form-group" [hidden]="!request.studentname">
+            <label for="id">Имя</label>
+            <input class="form-control" id="studentname" name="studentname" [(ngModel)]="request.studentname" readonly />
+        </div>
+        <div class="form-group" [hidden]="!request.studentlastname">
+            <label for="id">Отчество</label>
+            <input class="form-control" id="studentlastname" name="studentlastname" [(ngModel)]="request.studentlastname" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="requesttext">Текст заявления</label>
+            <input class="form-control" name="requesttext" id="requesttext" [(ngModel)]="request.requesttext" required/>
+
+            <div [hidden]="!(editForm.controls.requesttext?.dirty && editForm.controls.requesttext?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.requesttext?.errors?.required">
+                    Обязательное поле
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Отмена</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Сохранить</span>
+        </button>
+    </div>
+</form>
+

@@ -1,0 +1,52 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <div class="modal-header">
+        <h4 class="modal-title" id="myBlogLabel">Изменение обращения граждан</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group" [hidden]="!peoplerequest.peoplerequestid">
+            <label for="id">ID</label>
+            <input class="form-control" id="id" name="id" [(ngModel)]="peoplerequest.peoplerequestid" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="forwhoom">Кому</label>
+            <input class="form-control" name="forwhoom" id="forwhoom" [(ngModel)]="peoplerequest.forwhoom" required/>
+
+            <div [hidden]="!(editForm.controls.forwhoom?.dirty && editForm.controls.forwhoom?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.forwhoom?.errors?.required">
+                    Обязательное поле
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="executorfullname">Исполнитель</label>
+            <input class="form-control" name="executorfullname" id="executorfullname" [(ngModel)]="peoplerequest.executorfullname" required/>
+
+            <div [hidden]="!(editForm.controls.executorfullname?.dirty && editForm.controls.executorfullname?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.executorfullname?.errors?.required">
+                    Обязательное поле
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="address">Адрес</label>
+            <input class="form-control" name="address" id="address" [(ngModel)]="peoplerequest.address" required/>
+
+            <div [hidden]="!(editForm.controls.address?.dirty && editForm.controls.address?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.address?.errors?.required">
+                    Обязательное поле
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Отмена</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Сохранить</span>
+        </button>
+    </div>
+</form>
+

@@ -1,0 +1,37 @@
+
+<div *ngIf="outbox" style="margin: 20px 40px !important;">
+    <h2><span>Исходящая заявка</span> {{outbox.outboxid}}</h2>
+    <hr>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Дата заявки</span></dt>
+        <dd>
+            <span>{{outbox.documentdate}}</span>
+        </dd>
+        <dt><span>Кому</span></dt>
+        <dd>
+            <span>{{outbox.forwhom}}</span>
+        </dd>
+        <dt><span>Номер входящей заявки</span></dt>
+        <dd>
+            <span>{{outbox.inboxnumber}}</span>
+        </dd>
+        <dt><span>Отправитель</span></dt>
+        <dd>
+            <span>{{outbox.docownerfullname}}</span>
+        </dd>
+        <dt><span>Тип</span></dt>
+        <dd>
+            <span>{{outbox.outboxtypeByDocumenttype?.runame}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" class="btn btn-info" (click)="previousState()">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Назад</span>
+    </button>
+    <!--<button type="button"-->
+            <!--[routerLink]="['/archive', { outlets: { popup: 'outbox/'+ outbox.outboxid + '/edit'} }]"-->
+            <!--replaceUrl="true"-->
+            <!--class="btn btn-primary">-->
+        <!--<span class="fa fa-pencil"></span>&nbsp;<span> Изменить</span>-->
+    <!--</button>-->
+</div>

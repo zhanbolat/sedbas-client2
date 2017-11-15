@@ -1,22 +1,21 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { routerTransition } from '../../../router.animations';
-import {ArchBlank} from '../../../shared/model/arch-blank';
-// import {JhiLanguageService} from 'ng-jhipster';
-import {ArchBlankService} from './archive-blank.service';
+import {ArchInnerbox} from '../../../shared/model/arch-innerbox';
+import {ArchInnerboxService} from './archive-innerbox.service';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
-    selector: 'app-archive-detail',
-    templateUrl: './archive-blank-detail.component.html',
+    selector: 'app-archive-innerbox-detail',
+    templateUrl: './archive-innerbox-detail.component.html',
     styleUrls: ['../archive.component.scss'],
     animations: [routerTransition()]
 })
-export class ArchiveDetailComponent implements OnInit, OnDestroy {
-    blank: ArchBlank;
+export class ArchiveInnerboxDetailComponent implements OnInit, OnDestroy {
+    innerbox: ArchInnerbox;
     private subscription: any;
 
     constructor(
-        private archBlankService: ArchBlankService,
+        private archBlankService: ArchInnerboxService,
         private route: ActivatedRoute
     ) {
     }
@@ -24,13 +23,13 @@ export class ArchiveDetailComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
-            // this.blank = {blankid: params['id'], blanktype: 1, manufacturer: 'manufacturer1', exemplarcount: 5};
+            // this.innerbox = {innerboxid: 2, innerboxnumber: 111111, reporterfullname: 'Reporter name2', executorfullname: 'zzz fajs adsds'};
         });
     }
 
     load(id) {
-        this.archBlankService.find(id).subscribe((blank) => {
-            this.blank = blank;
+        this.archBlankService.find(id).subscribe((innerbox) => {
+            this.innerbox = innerbox;
         });
     }
     previousState() {

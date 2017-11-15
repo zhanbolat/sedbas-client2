@@ -1,0 +1,49 @@
+
+<div *ngIf="request" style="margin: 20px 40px !important;">
+    <h2><span>Входящая заявка</span> {{request.id}}</h2>
+    <hr>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Идентификатор</span></dt>
+        <dd>
+            <span>{{request.studentid}}</span>
+        </dd>
+        <dt><span>Дата заявления</span></dt>
+        <dd>
+            <span>{{request.appdate}}</span>
+        </dd>
+        <dt><span>ФИО студента</span></dt>
+        <dd>
+            <span>{{request.studentsurname}} {{request.studentname}} {{request.studentlastname}}</span>
+        </dd>
+        <dt><span>Email</span></dt>
+        <dd>
+            <span>{{request.studentemail}}</span>
+        </dd>
+        <dt><span>Номер телефона</span></dt>
+        <dd>
+            <span>{{request.studentphone}}</span>
+        </dd>
+        <dt><span>Специальность</span></dt>
+        <dd>
+            <span>{{request.studentspecialitycode}} - {{request.studentspeciality}}</span>
+        </dd>
+        <dt><span>Текст заявления</span></dt>
+        <dd>
+            <span>{{request.requesttext}}</span>
+        </dd>
+        <dt><span>Комментарий</span></dt>
+        <dd>
+            <span>{{request.systemcomment}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit" class="btn btn-info" (click)="previousState()">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Назад</span>
+    </button>
+    <!--<button type="button"-->
+            <!--[routerLink]="['/archive', { outlets: { popup: 'request/'+ request.id + '/edit'} }]"-->
+            <!--replaceUrl="true"-->
+            <!--class="btn btn-primary">-->
+        <!--<span class="fa fa-pencil"></span>&nbsp;<span> Изменить</span>-->
+    <!--</button>-->
+</div>

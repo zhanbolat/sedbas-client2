@@ -7,7 +7,7 @@
             <ngb-tab id="inboxTab">
                 <ng-template ngbTabTitle>
                     <div (click)="changeTab('inboxTab')">
-                        Входящие заявки
+                        Входящий журнал
                     </div>
                 </ng-template>
                 <ng-template ngbTabContent>
@@ -15,7 +15,9 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>Номер</th>
+                                <th (click)="sort('number')">Номер
+                                    <span class="fa fa-sort" *ngIf="key =='number'" [ngClass]="{'fa fa-sort-asc':reverse,'fa fa-sort-desc':!reverse}"></span>
+                                </th>
                                 <th>Дата</th>
                                 <th>От</th>
                                 <th>Исполнитель</th>
@@ -25,7 +27,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let inbox of inboxes ;trackBy: trackInboxId">
+                            <tr *ngFor="let inbox of inboxes | orderBy: key : reverse | paginate: { itemsPerPage: 10, currentPage: p1 } ;trackBy: trackInboxId">
                                 <td><a [routerLink]="['./inbox', inbox.inboxid ]">{{inbox.inboxnumber}}</a></td>
                                 <td>{{inbox.documentdate}}</td>
                                 <td>{{inbox.fromwhoom}}</td>
@@ -60,13 +62,14 @@
                                 </td>
                             </tr>
                             </tbody>
+                            <pagination-controls (pageChange)="p1 = $event"></pagination-controls>
                         </table>
                     </div>
                 </ng-template>
             </ngb-tab>
             <ngb-tab id="outboxTab">
                 <ng-template ngbTabTitle>
-                    <div (click)="changeTab('outboxTab')">Исходящие заявки</div>
+                    <div (click)="changeTab('outboxTab')">Исходящий журнал</div>
                 </ng-template>
                 <ng-template ngbTabContent>
                     <div class="card-block table-responsive">
@@ -83,7 +86,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let outbox of outboxes ;trackBy: trackOutboxId">
+                            <tr *ngFor="let outbox of outboxes | paginate: { itemsPerPage: 10, currentPage: p2 } ;trackBy: trackOutboxId">
                                 <td><a [routerLink]="['./outbox', outbox.outboxid ]">{{outbox.outboxnumber}}</a></td>
                                 <td>{{outbox.documentdate}}</td>
                                 <td>{{outbox.forwhom}}</td>
@@ -118,13 +121,14 @@
                                 </td>
                             </tr>
                             </tbody>
+                            <pagination-controls (pageChange)="p2 = $event"></pagination-controls>
                         </table>
                     </div>
                 </ng-template>
             </ngb-tab>
             <ngb-tab id="innerTab">
                 <ng-template ngbTabTitle>
-                    <div (click)="changeTab('innerTab')">Внутренние заявки</div>
+                    <div (click)="changeTab('innerTab')">Внутренний журнал</div>
                 </ng-template>
                 <ng-template ngbTabContent>
                     <div class="card-block table-responsive">
@@ -141,7 +145,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let innerbox of innerboxes ;trackBy: trackInnerboxId">
+                            <tr *ngFor="let innerbox of innerboxes | paginate: { itemsPerPage: 10, currentPage: p3 } ;trackBy: trackInnerboxId">
                                 <td><a [routerLink]="['./innerbox', innerbox.innerboxid ]">{{innerbox.innerboxnumber}}</a></td>
                                 <td>{{innerbox.documentdate}}</td>
                                 <td>{{innerbox.reporterfullname}}</td>
@@ -176,6 +180,7 @@
                                 </td>
                             </tr>
                             </tbody>
+                            <pagination-controls (pageChange)="p3 = $event"></pagination-controls>
                         </table>
                     </div>
                 </ng-template>
@@ -198,7 +203,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let blank of blanks ;trackBy: trackId">
+                            <tr *ngFor="let blank of blanks | paginate: { itemsPerPage: 10, currentPage: p4 } ;trackBy: trackId">
                                 <td><a [routerLink]="['./blank', blank.blankid ]">{{blank.blankid}}</a></td>
                                 <td>{{blank.manufacturer}}</td>
                                 <td>{{blank.exemplarcount}}</td>
@@ -234,13 +239,14 @@
                                 </td>
                             </tr>
                             </tbody>
+                            <pagination-controls (pageChange)="p4 = $event"></pagination-controls>
                         </table>
                     </div>
                 </ng-template>
             </ngb-tab>
             <ngb-tab id="requestTab">
                 <ng-template ngbTabTitle>
-                    <div (click)="changeTab('requestTab')">Обращения</div>
+                    <div (click)="changeTab('requestTab')">Обращения граждан</div>
                 </ng-template>
                 <ng-template ngbTabContent>
                     <div class="card-block table-responsive">
@@ -256,7 +262,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let request of peoplerequests ;trackBy: trackPeopleRequestId">
+                            <tr *ngFor="let request of peoplerequests | paginate: { itemsPerPage: 10, currentPage: p5 } ;trackBy: trackPeopleRequestId">
                                 <td><a [routerLink]="['./peoplerequest', request.peoplerequestid ]">{{request.documentnumber}}</a></td>
                                 <td>{{request.forwhoom}}</td>
                                 <td>{{request.executorfullname}}</td>
@@ -288,20 +294,21 @@
                                 </td>
                             </tr>
                             </tbody>
+                            <pagination-controls (pageChange)="p5 = $event"></pagination-controls>
                         </table>
                     </div>
                 </ng-template>
             </ngb-tab>
             <ngb-tab id="sRequestTab">
                 <ng-template ngbTabTitle>
-                    <div (click)="changeTab('sRequestTab')">Заявки</div>
+                    <div (click)="changeTab('sRequestTab')">Заявления</div>
                 </ng-template>
                 <ng-template ngbTabContent>
                     <div class="card-block table-responsive">
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>Номер</th>
+                                <th>Идентификатор</th>
                                 <th>Дата</th>
                                 <th>ФИО студента</th>
                                 <th>Email</th>
@@ -311,7 +318,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let request of requests ;trackBy: trackRequestId">
+                            <tr *ngFor="let request of requests | paginate: { itemsPerPage: 10, currentPage: p6 } ;trackBy: trackRequestId">
                                 <td><a [routerLink]="['./request', request.id ]">{{request.studentid}}</a></td>
                                 <td>{{request.appdate}}</td>
                                 <td>{{request.studentsurname}} {{request.studentname}} {{request.studentlastname}}</td>
@@ -344,6 +351,7 @@
                                 </td>
                             </tr>
                             </tbody>
+                            <pagination-controls (pageChange)="p6 = $event"></pagination-controls>
                         </table>
                     </div>
                 </ng-template>

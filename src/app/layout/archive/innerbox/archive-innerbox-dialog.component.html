@@ -1,20 +1,20 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
     <div class="modal-header">
-        <h4 class="modal-title" id="myBlogLabel">Изменение входящей заявки</h4>
+        <h4 class="modal-title" id="myBlogLabel">Изменение внутренней заявки</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 (click)="clear()">&times;</button>
     </div>
     <div class="modal-body">
-        <div class="form-group" [hidden]="!inbox.inboxid">
+        <div class="form-group" [hidden]="!innerbox.innerboxid">
             <label for="id">ID</label>
-            <input class="form-control" id="id" name="id" [(ngModel)]="inbox.inboxid" readonly />
+            <input class="form-control" id="id" name="id" [(ngModel)]="innerbox.innerboxid" readonly />
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="fromwhoom">От кого</label>
-            <input class="form-control" name="fromwhoom" id="fromwhoom" [(ngModel)]="inbox.fromwhoom" required/>
+            <label class="form-control-label" for="reporterfullname">Ответственный</label>
+            <input class="form-control" name="reporterfullname" id="reporterfullname" [(ngModel)]="innerbox.reporterfullname" required/>
 
-            <div [hidden]="!(editForm.controls.fromwhoom?.dirty && editForm.controls.fromwhoom?.invalid)">
-                <small class="form-text text-danger" [hidden]="!editForm.controls.fromwhoom?.errors?.required">
+            <div [hidden]="!(editForm.controls.reporterfullname?.dirty && editForm.controls.reporterfullname?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.reporterfullname?.errors?.required">
                     Обязательное поле
                 </small>
             </div>

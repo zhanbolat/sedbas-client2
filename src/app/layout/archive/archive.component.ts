@@ -28,6 +28,22 @@ export class ArchiveComponent implements OnInit {
     requests: ArchRequest[];
     peoplerequests: ArchPeopleRequest[];
     activeIdString: string;
+
+    //sorting
+    key: string = 'number';
+    reverse: boolean = false;
+    sort(key){
+        this.key = key;
+        this.reverse = !this.reverse;
+    }
+
+    p1: number = 1;
+    p2: number = 1;
+    p3: number = 1;
+    p4: number = 1;
+    p5: number = 1;
+    p6: number = 1;
+
     constructor(
         private archBlankService: ArchBlankService,
         private archInboxService: ArchInboxService,
@@ -151,12 +167,28 @@ export class ArchiveComponent implements OnInit {
             case 'inboxTab': {
                 this.inboxes = [
                     {inboxid: 3, inboxnumber: 11231231, fromwhoom: 'Zzzg ssss', executorfullname: 'ad asd kjas'},
+                    {inboxid: 4, inboxnumber: 212341, fromwhoom: 'Aaasds kllk', executorfullname: 'z fajs adsds'},
+                    {inboxid: 4, inboxnumber: 212341, fromwhoom: 'Aaasds kllk', executorfullname: 'z fajs adsds'},
+                    {inboxid: 4, inboxnumber: 212341, fromwhoom: 'Aaasds kllk', executorfullname: 'z fajs adsds'},
+                    {inboxid: 4, inboxnumber: 212341, fromwhoom: 'Aaasds kllk', executorfullname: 'z fajs adsds'},
+                    {inboxid: 4, inboxnumber: 212341, fromwhoom: 'Aaasds kllk', executorfullname: 'z fajs adsds'},
                     {inboxid: 4, inboxnumber: 212341, fromwhoom: 'Aaasds kllk', executorfullname: 'z fajs adsds'}
                 ];
                 break;
             }
             case 'outboxTab': {
                 this.outboxes = [
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
                     {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
                     {outboxid: 6, forwhom: 'Test test2', inboxnumber: '534312', docownerfullname: 'Owner 2'}
                 ];
@@ -229,21 +261,18 @@ export class ArchiveComponent implements OnInit {
 
     ngOnInit() {
         this.activeIdString = 'inboxTab';
-        // this.loadTab();
-        // this.loadAll();
-        this.loadTab1();
-        this.loadAll1();
-        // this.principal.identity().then((account) => {
-        //     this.currentAccount = account;
-        // });
-        // this.registerChangeInBlogs();
+
+        this.loadTab();
+        this.loadAll();
+        // this.loadTab1();
+        // this.loadAll1();
     }
 
     changeTab(id: string) {
         console.log('change tab method called with tab id: ' + id);
         this.activeIdString = id;
-        this.loadTab1();
-        // this.loadTab();
+        // this.loadTab1();
+        this.loadTab();
     }
 
     trackId(index: number, item: ArchBlank) {
