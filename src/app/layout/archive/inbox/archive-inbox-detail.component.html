@@ -5,23 +5,37 @@
     <dl class="row-md jh-entity-details">
         <dt><span>Дата заявки</span></dt>
         <dd>
-            <span>{{inbox.documentdate}}</span>
+            <span>{{inbox.documentdate | date: 'dd/MM/yyyy'}}</span>
         </dd>
         <dt><span>От кого</span></dt>
         <dd>
             <span>{{inbox.fromwhoom}}</span>
         </dd>
-        <dt><span>Исполнитель</span></dt>
+        <dt *ngIf="inbox.executorfullname"><span>Исполнитель</span></dt>
         <dd>
             <span>{{inbox.executorfullname}}</span>
         </dd>
         <dt><span>Дата исполнения</span></dt>
         <dd>
-            <span>{{inbox.executerdate}}</span>
+            <span>{{inbox.executerdate | date: 'dd/MM/yyyy'}}</span>
         </dd>
         <dt><span>Тип</span></dt>
         <dd>
             <span>{{inbox.inboxtypeByDocumenttype?.runame}}</span>
+        </dd>
+        <dt *ngIf="inbox.documentcontentnote"><span>Краткое содержание</span></dt>
+        <dd>
+            <span>{{inbox.documentcontentnote}}</span>
+        </dd>
+        <dt *ngIf="inbox.note"><span>Заметки</span></dt>
+        <dd>
+            <span>{{inbox.note}}</span>
+        </dd>
+        <dt *ngIf="attachments" ><span>Прикрепления</span></dt>
+        <dd>
+            <div *ngFor="let attachment of attachments">
+                <a [href]="attachment.fileUrl" [download]="attachment.filename">{{attachment.filename}}</a>
+            </div>
         </dd>
     </dl>
 

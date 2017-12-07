@@ -9,7 +9,7 @@
         </dd>
         <dt><span>Дата заявления</span></dt>
         <dd>
-            <span>{{request.appdate}}</span>
+            <span>{{request.appdate | date: 'dd/MM/yyyy hh:mm:ss'}}</span>
         </dd>
         <dt><span>ФИО студента</span></dt>
         <dd>
@@ -27,6 +27,22 @@
         <dd>
             <span>{{request.studentspecialitycode}} - {{request.studentspeciality}}</span>
         </dd>
+        <dt><span>Язык обучения</span></dt>
+        <dd>
+            <span>{{request.studentlang}}</span>
+        </dd>
+        <dt><span>Курс обучения</span></dt>
+        <dd>
+            <span>{{request.studentcourse}}</span>
+        </dd>
+        <dt><span>Форма обучения</span></dt>
+        <dd>
+            <span>{{request.studentform}}</span>
+        </dd>
+        <dt *ngIf="request.bonAppchildtypestr"><span>Тип заявления</span></dt>
+        <dd>
+            <span>{{request.bonAppchildtypestr}}</span>
+        </dd>
         <dt><span>Текст заявления</span></dt>
         <dd>
             <span>{{request.requesttext}}</span>
@@ -34,6 +50,16 @@
         <dt><span>Комментарий</span></dt>
         <dd>
             <span>{{request.systemcomment}}</span>
+        </dd>
+        <dt *ngIf="request.rectorvisetext"><span>Комментарий</span></dt>
+        <dd>
+            <span>{{request.rectorvisetext}}</span>
+        </dd>
+        <dt *ngIf="attachments" ><span>Прикрепления</span></dt>
+        <dd>
+            <div *ngFor="let attachment of attachments">
+                <a [href]="attachment.fileUrl" [download]="attachment.filename">{{attachment.filename}}</a>
+            </div>
         </dd>
     </dl>
 

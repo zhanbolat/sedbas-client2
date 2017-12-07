@@ -3,6 +3,10 @@ import { routerTransition } from '../../../router.animations';
 import {ArchRequest} from '../../../shared/model/arch-request';
 import {ArchRequestService} from './archive-request.service';
 import {ActivatedRoute} from '@angular/router';
+import {Response} from "@angular/http";
+import {DomSanitizer} from "@angular/platform-browser";
+import {ArchAttachmentService} from "../attachment/archive-attachment.service";
+import {ArchAttachment} from "../../../shared/model/arch-attachment";
 
 @Component({
     selector: 'app-archive-request-detail',
@@ -13,10 +17,13 @@ import {ActivatedRoute} from '@angular/router';
 export class ArchiveRequestDetailComponent implements OnInit, OnDestroy {
     request: ArchRequest;
     private subscription: any;
+    attachments: ArchAttachment[];
 
     constructor(
         private archBlankService: ArchRequestService,
-        private route: ActivatedRoute
+        private archAttachmentService: ArchAttachmentService,
+        private route: ActivatedRoute,
+        private sanitizer: DomSanitizer
     ) {
     }
 
@@ -31,6 +38,18 @@ export class ArchiveRequestDetailComponent implements OnInit, OnDestroy {
     load(id) {
         this.archBlankService.find(id).subscribe((request) => {
             this.request = request;
+
+            this.archAttachmentService.find(request.id, 6).subscribe(
+                (res: Response) => {
+                    this.attachments = res.json();
+
+                    for (let i = 0; i < this.attachments.length; i++) {
+                        this.attachments[i].fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+                            window.URL.createObjectURL(new Blob([this.attachments[i].filecontent])));
+                    }
+                },
+                (res: Response) => console.log('Error while getting archive document attachment: ' + res.json().message)
+            );
         });
     }
     previousState() {

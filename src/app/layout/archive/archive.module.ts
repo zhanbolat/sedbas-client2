@@ -61,7 +61,9 @@ import {
     ArchiveRequestDeletePopupComponent
 } from './request/archive-request-delete-dialog.component';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {Ng2OrderModule} from "ng2-order-pipe";
+import {Ng2OrderModule} from 'ng2-order-pipe';
+import {FilterPipe} from '../../shared/pipes/filter.pipe';
+import {ArchAttachmentService} from "./attachment/archive-attachment.service";
 
 
 // export function alertServiceProvider(sanitizer: Sanitizer, translateService: TranslateService) {
@@ -110,6 +112,7 @@ import {Ng2OrderModule} from "ng2-order-pipe";
     //     Title
     // ],
     providers: [
+        ArchAttachmentService,
         ArchBlankService,
         ArchInboxService,
         ArchInnerboxService,
@@ -189,6 +192,7 @@ import {Ng2OrderModule} from "ng2-order-pipe";
       ArchiveRequestPopupComponent,
       ArchiveRequestDeleteDialogComponent,
       ArchiveRequestDeletePopupComponent,
+      FilterPipe,
       JhiAlertComponent,
       JhiAlertErrorComponent
   ],

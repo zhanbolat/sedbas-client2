@@ -3,6 +3,10 @@ import { routerTransition } from '../../../router.animations';
 import {ArchPeopleRequest} from '../../../shared/model/arch-people_request';
 import {ArchPeopleRequestService} from './archive-people_request.service';
 import {ActivatedRoute} from '@angular/router';
+import {ArchAttachmentService} from "../attachment/archive-attachment.service";
+import {DomSanitizer} from "@angular/platform-browser";
+import {ArchAttachment} from "../../../shared/model/arch-attachment";
+import {Response} from "@angular/http";
 
 @Component({
     selector: 'app-archive-peoplerequest-detail',
@@ -13,10 +17,13 @@ import {ActivatedRoute} from '@angular/router';
 export class ArchivePeopleRequestDetailComponent implements OnInit, OnDestroy {
     peoplerequest: ArchPeopleRequest;
     private subscription: any;
+    attachments: ArchAttachment[];
 
     constructor(
         private archBlankService: ArchPeopleRequestService,
-        private route: ActivatedRoute
+        private archAttachmentService: ArchAttachmentService,
+        private route: ActivatedRoute,
+        private sanitizer: DomSanitizer
     ) {
     }
 
@@ -31,6 +38,18 @@ export class ArchivePeopleRequestDetailComponent implements OnInit, OnDestroy {
     load(id) {
         this.archBlankService.find(id).subscribe((peoplerequest) => {
             this.peoplerequest = peoplerequest;
+
+            this.archAttachmentService.find(peoplerequest.peoplerequestid, 5).subscribe(
+                (res: Response) => {
+                    this.attachments = res.json();
+
+                    for (let i = 0; i < this.attachments.length; i++) {
+                        this.attachments[i].fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+                            window.URL.createObjectURL(new Blob([this.attachments[i].filecontent])));
+                    }
+                },
+                (res: Response) => console.log('Error while getting archive document attachment: ' + res.json().message)
+            );
         });
     }
     previousState() {

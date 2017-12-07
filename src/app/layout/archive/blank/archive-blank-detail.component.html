@@ -8,7 +8,30 @@
             <span>{{blank.manufacturer}}</span>
         </dd>
         <dt><span>Экземпляр</span></dt>
-        <dd> </dd>
+        <dd><span> {{blank.exemplarcount}}</span></dd>
+
+        <dt><span>Имя адресата</span></dt>
+        <dd>
+            <span>{{blank.addresseefullname}}</span>
+        </dd>
+        <dt><span>Отдел адресата</span></dt>
+        <dd>
+            <span>{{blank.addresseplacement}}</span>
+        </dd>
+        <dt><span>Комментарий</span></dt>
+        <dd>
+            <span>{{blank.blankcomment}}</span>
+        </dd>
+        <dt *ngIf="blank.blankstatusByBlankstatus"><span>Статус</span></dt>
+        <dd>
+            <span>{{blank.blankstatusByBlankstatus?.runame}}</span>
+        </dd>
+        <dt *ngIf="attachments" ><span>Прикрепления</span></dt>
+        <dd>
+            <div *ngFor="let attachment of attachments">
+                <a [href]="attachment.fileUrl" [download]="attachment.filename">{{attachment.filename}}</a>
+            </div>
+        </dd>
     </dl>
 
     <button type="submit" class="btn btn-info" (click)="previousState()">

@@ -12,8 +12,27 @@ export class AuthGuard implements CanActivate {
         if (localStorage.getItem('isLoggedin')) {
             return true;
         }
-
-        this.router.navigate(['/login']);
-        return false;
+        //     this.authService.getCurrentSession().subscribe(session => {
+        //         if (session.user_id === null || session.user_name === null) {
+        //             localStorage.removeItem('isLoggedin');
+        //             this.router.navigate(['/login']);
+        //             return false;
+        //         }
+        //         if (session.user_name.toLowerCase().includes('admin') || session.user_name.toLowerCase().includes('install')) {
+        //             return true;
+        //         } else {
+        //             this.router.navigate(['/user']);
+        //             return false;
+        //         }
+        //     }, error2 => {
+        //         console.log('Error while getting session', error2.message);
+        //         localStorage.removeItem('isLoggedin');
+        //         this.router.navigate(['/login']);
+        //         return false;
+        //     });
+        // } else {
+            this.router.navigate(['/login']);
+            return false;
+        // }
     }
 }

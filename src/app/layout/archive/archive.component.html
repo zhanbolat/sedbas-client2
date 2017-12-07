@@ -3,6 +3,16 @@
         Архивная информация
     </div>
     <div class="archive-container">
+
+        <form>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                    <input type="text" class="form-control" name="searchString" placeholder="Введите для поиска" [(ngModel)]="searchString">
+                </div>
+            </div>
+        </form>
+
         <ngb-tabset [activeId]="activeIdString" #tabset="ngbTabset">
             <ngb-tab id="inboxTab">
                 <ng-template ngbTabTitle>
@@ -12,6 +22,10 @@
                 </ng-template>
                 <ng-template ngbTabContent>
                     <div class="card-block table-responsive">
+                        <!--<button class="btn btn-primary float-right" [routerLink]="['./', { outlets: { popup: ['inbox-new'] } }]">-->
+                            <!--<span class="fa fa-plus"></span>-->
+                            <!--<span>Добавить</span>-->
+                        <!--</button>-->
                         <table class="table">
                             <thead>
                             <tr>
@@ -27,12 +41,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let inbox of inboxes | orderBy: key : reverse | paginate: { itemsPerPage: 10, currentPage: p1 } ;trackBy: trackInboxId">
+                            <tr *ngFor="let inbox of inboxes | orderBy: key : reverse | filter : searchString | paginate: { itemsPerPage: 10, currentPage: p1 } ;trackBy: trackInboxId">
                                 <td><a [routerLink]="['./inbox', inbox.inboxid ]">{{inbox.inboxnumber}}</a></td>
-                                <td>{{inbox.documentdate}}</td>
+                                <td>{{inbox.documentdate | date: 'dd/MM/yyyy'}}</td>
                                 <td>{{inbox.fromwhoom}}</td>
                                 <td>{{inbox.executorfullname}}</td>
-                                <td>{{inbox.executerdate}}</td>
+                                <td>{{inbox.executerdate | date: 'dd/MM/yyyy'}}</td>
                                 <td>
                                     {{inbox.inboxtypeByDocumenttype?.runame}}
                                 </td>
@@ -62,7 +76,11 @@
                                 </td>
                             </tr>
                             </tbody>
-                            <pagination-controls (pageChange)="p1 = $event"></pagination-controls>
+                            <pagination-controls (pageChange)="p1 = $event"
+                                                 directionLinks="true"
+                                                 autoHide="true"
+                                                 previousLabel=""
+                                                 nextLabel=""></pagination-controls>
                         </table>
                     </div>
                 </ng-template>
@@ -86,9 +104,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let outbox of outboxes | paginate: { itemsPerPage: 10, currentPage: p2 } ;trackBy: trackOutboxId">
+                            <tr *ngFor="let outbox of outboxes | filter : searchString | paginate: { itemsPerPage: 10, currentPage: p2 } ;trackBy: trackOutboxId">
                                 <td><a [routerLink]="['./outbox', outbox.outboxid ]">{{outbox.outboxnumber}}</a></td>
-                                <td>{{outbox.documentdate}}</td>
+                                <td>{{outbox.documentdate | date: 'dd/MM/yyyy'}}</td>
                                 <td>{{outbox.forwhom}}</td>
                                 <td>{{outbox.inboxnumber}}</td>
                                 <td>{{outbox.docownerfullname}}</td>
@@ -121,7 +139,11 @@
                                 </td>
                             </tr>
                             </tbody>
-                            <pagination-controls (pageChange)="p2 = $event"></pagination-controls>
+                            <pagination-controls (pageChange)="p2 = $event"
+                                                 directionLinks="true"
+                                                 autoHide="true"
+                                                 previousLabel=""
+                                                 nextLabel=""></pagination-controls>
                         </table>
                     </div>
                 </ng-template>
@@ -145,12 +167,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let innerbox of innerboxes | paginate: { itemsPerPage: 10, currentPage: p3 } ;trackBy: trackInnerboxId">
+                            <tr *ngFor="let innerbox of innerboxes | filter : searchString | paginate: { itemsPerPage: 10, currentPage: p3 } ;trackBy: trackInnerboxId">
                                 <td><a [routerLink]="['./innerbox', innerbox.innerboxid ]">{{innerbox.innerboxnumber}}</a></td>
-                                <td>{{innerbox.documentdate}}</td>
+                                <td>{{innerbox.documentdate | date: 'dd/MM/yyyy'}}</td>
                                 <td>{{innerbox.reporterfullname}}</td>
                                 <td>{{innerbox.executorfullname}}</td>
-                                <td>{{innerbox.executerdate}}</td>
+                                <td>{{innerbox.executerdate | date: 'dd/MM/yyyy'}}</td>
                                 <td>
                                     {{innerbox.innerboxtypeByDocumenttype?.runame}}
                                 </td>
@@ -180,7 +202,11 @@
                                 </td>
                             </tr>
                             </tbody>
-                            <pagination-controls (pageChange)="p3 = $event"></pagination-controls>
+                            <pagination-controls (pageChange)="p3 = $event"
+                                                 directionLinks="true"
+                                                 autoHide="true"
+                                                 previousLabel=""
+                                                 nextLabel=""></pagination-controls>
                         </table>
                     </div>
                 </ng-template>
@@ -203,7 +229,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let blank of blanks | paginate: { itemsPerPage: 10, currentPage: p4 } ;trackBy: trackId">
+                            <tr *ngFor="let blank of blanks | filter : searchString | paginate: { itemsPerPage: 10, currentPage: p4 } ;trackBy: trackId">
                                 <td><a [routerLink]="['./blank', blank.blankid ]">{{blank.blankid}}</a></td>
                                 <td>{{blank.manufacturer}}</td>
                                 <td>{{blank.exemplarcount}}</td>
@@ -239,7 +265,11 @@
                                 </td>
                             </tr>
                             </tbody>
-                            <pagination-controls (pageChange)="p4 = $event"></pagination-controls>
+                            <pagination-controls (pageChange)="p4 = $event"
+                                                 directionLinks="true"
+                                                 autoHide="true"
+                                                 previousLabel=""
+                                                 nextLabel=""></pagination-controls>
                         </table>
                     </div>
                 </ng-template>
@@ -262,11 +292,11 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let request of peoplerequests | paginate: { itemsPerPage: 10, currentPage: p5 } ;trackBy: trackPeopleRequestId">
+                            <tr *ngFor="let request of peoplerequests | filter : searchString | paginate: { itemsPerPage: 10, currentPage: p5 } ;trackBy: trackPeopleRequestId">
                                 <td><a [routerLink]="['./peoplerequest', request.peoplerequestid ]">{{request.documentnumber}}</a></td>
                                 <td>{{request.forwhoom}}</td>
                                 <td>{{request.executorfullname}}</td>
-                                <td>{{request.executerdate}}</td>
+                                <td>{{request.executerdate | date: 'dd/MM/yyyy'}}</td>
                                 <td>{{request.address}}</td>
                                 <td class="text-right">
                                     <div class="btn-group flex-btn-group-container">
@@ -294,7 +324,11 @@
                                 </td>
                             </tr>
                             </tbody>
-                            <pagination-controls (pageChange)="p5 = $event"></pagination-controls>
+                            <pagination-controls (pageChange)="p5 = $event"
+                                                 directionLinks="true"
+                                                 autoHide="true"
+                                                 previousLabel=""
+                                                 nextLabel=""></pagination-controls>
                         </table>
                     </div>
                 </ng-template>
@@ -318,9 +352,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let request of requests | paginate: { itemsPerPage: 10, currentPage: p6 } ;trackBy: trackRequestId">
+                            <tr *ngFor="let request of requests | filter : searchString | paginate: { itemsPerPage: 10, currentPage: p6 } ;trackBy: trackRequestId">
                                 <td><a [routerLink]="['./request', request.id ]">{{request.studentid}}</a></td>
-                                <td>{{request.appdate}}</td>
+                                <td>{{request.appdate | date: 'dd/MM/yyyy hh:mm:ss'}}</td>
                                 <td>{{request.studentsurname}} {{request.studentname}} {{request.studentlastname}}</td>
                                 <td>{{request.studentemail}}</td>
                                 <td>{{request.studentphone}}</td>
@@ -351,7 +385,11 @@
                                 </td>
                             </tr>
                             </tbody>
-                            <pagination-controls (pageChange)="p6 = $event"></pagination-controls>
+                            <pagination-controls (pageChange)="p6 = $event"
+                                                 directionLinks="true"
+                                                 autoHide="true"
+                                                 previousLabel=""
+                                                 nextLabel=""></pagination-controls>
                         </table>
                     </div>
                 </ng-template>

@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
     pushRightClass: string = 'push-right';
     username: string;
     user_id: string;
+    showAdminAccess: boolean;
 
     constructor(private translate: TranslateService, public router: Router, private authService: AuthService) {
         this.router.events.subscribe((val) => {
@@ -23,8 +24,11 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
+        // this.showAdminAccess = true;
+        this.showAdminAccess = false;
         this.authService.getCurrentSession().subscribe(session => {
             this.username = session.user_name;
+            this.showAdminAccess = this.username.toLowerCase().includes('admin') || this.username.toLowerCase().includes('install');
             this.user_id = session.user_id;
             if (session.user_id === null) {
                 localStorage.removeItem('isLoggedin');

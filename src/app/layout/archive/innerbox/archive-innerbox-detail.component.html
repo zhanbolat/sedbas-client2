@@ -3,13 +3,21 @@
     <h2><span>Внутренняя заявка</span> {{innerbox.innerboxnumber}}</h2>
     <hr>
     <dl class="row-md jh-entity-details">
+        <dt><span>Номер</span></dt>
+        <dd>
+            <span>{{innerbox.documentnumber}}</span>
+        </dd>
         <dt><span>Дата заявки</span></dt>
         <dd>
-            <span>{{innerbox.documentdate}}</span>
+            <span>{{innerbox.documentdate | date: 'dd/MM/yyyy'}}</span>
         </dd>
         <dt><span>Ответственный</span></dt>
         <dd>
             <span>{{innerbox.reporterfullname}}</span>
+        </dd>
+        <dt *ngIf="innerbox.reporterdept"><span>Отдел ответственного лица</span></dt>
+        <dd>
+            <span>{{innerbox.reporterdept}}</span>
         </dd>
         <dt><span>Исполнитель</span></dt>
         <dd>
@@ -17,11 +25,29 @@
         </dd>
         <dt><span>Дата исполнения</span></dt>
         <dd>
-            <span>{{innerbox.executerdate}}</span>
+            <span>{{innerbox.executerdate | date: 'dd/MM/yyyy'}}</span>
         </dd>
         <dt><span>Тип</span></dt>
         <dd>
             <span>{{innerbox.innerboxtypeByDocumenttype?.runame}}</span>
+        </dd>
+        <dt *ngIf="innerbox.pagecount"><span>Количество страниц</span></dt>
+        <dd>
+            <span>{{innerbox.pagecount}}</span>
+        </dd>
+        <dt *ngIf="innerbox.documentcontentnote"><span>Краткое содержание</span></dt>
+        <dd>
+            <span>{{innerbox.documentcontentnote}}</span>
+        </dd>
+        <dt *ngIf="innerbox.note"><span>Заметки</span></dt>
+        <dd>
+            <span>{{innerbox.note}}</span>
+        </dd>
+        <dt *ngIf="attachments" ><span>Прикрепления</span></dt>
+        <dd>
+            <div *ngFor="let attachment of attachments">
+                <a [href]="attachment.fileUrl" [download]="attachment.filename">{{attachment.filename}}</a>
+            </div>
         </dd>
     </dl>
 

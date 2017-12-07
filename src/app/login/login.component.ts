@@ -14,17 +14,20 @@ export class LoginComponent implements OnInit {
 
     model: User;
     showAuthError: boolean;
+    timestamp: any;
 
     constructor(private authService: AuthService,
                 public router: Router) {
     }
 
     ngOnInit(): void {
+        this.timestamp= '1382086394000';
         this.model = new User();
         console.log('LoginComponent called');
     }
 
     onLoggedin() {
+        console.log('logging in ...');
         this.authService.executeLogin(this.model)
             .subscribe(
                 successResponse => {

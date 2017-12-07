@@ -5,7 +5,7 @@
     <dl class="row-md jh-entity-details">
         <dt><span>Дата заявки</span></dt>
         <dd>
-            <span>{{outbox.documentdate}}</span>
+            <span>{{outbox.documentdate | date: 'dd/MM/yyyy'}}</span>
         </dd>
         <dt><span>Кому</span></dt>
         <dd>
@@ -15,13 +15,27 @@
         <dd>
             <span>{{outbox.inboxnumber}}</span>
         </dd>
-        <dt><span>Отправитель</span></dt>
+        <dt *ngIf="outbox.docownerfullname"><span>Отправитель</span></dt>
         <dd>
             <span>{{outbox.docownerfullname}}</span>
         </dd>
         <dt><span>Тип</span></dt>
         <dd>
             <span>{{outbox.outboxtypeByDocumenttype?.runame}}</span>
+        </dd>
+        <dt *ngIf="outbox.pagecount"><span>Количество страниц</span></dt>
+        <dd>
+            <span>{{outbox.pagecount}}</span>
+        </dd>
+        <dt *ngIf="outbox.documentcontentnote"><span>Краткое содержание</span></dt>
+        <dd>
+            <span>{{outbox.documentcontentnote}}</span>
+        </dd>
+        <dt *ngIf="attachments" ><span>Прикрепления</span></dt>
+        <dd>
+            <div *ngFor="let attachment of attachments">
+                <a [href]="attachment.fileUrl" [download]="attachment.filename">{{attachment.filename}}</a>
+            </div>
         </dd>
     </dl>
 

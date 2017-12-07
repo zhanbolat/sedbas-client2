@@ -6,11 +6,15 @@
             <form role="form">
                 <div class="form-content">
                     <div class="form-group">
-                        <input [(ngModel)]="model.username" #firstname="ngModel" name="username" class="form-control input-underline input-lg" placeholder="Username">
+                        <input [(ngModel)]="model.username" #firstname="ngModel"
+                               name="username" class="form-control input-underline input-lg"
+                               placeholder="Username" (keyup.enter)="onLoggedin();">
                     </div>
 
                     <div class="form-group">
-                        <input [(ngModel)]="model.password" #password="ngModel" name="password" type="password" class="form-control input-underline input-lg" placeholder="Password">
+                        <input [(ngModel)]="model.password" #password="ngModel" name="password" type="password"
+                               class="form-control input-underline input-lg" placeholder="Password"
+                               (keyup.enter)="onLoggedin();">
                     </div>
                     <div *ngIf="showAuthError" class="alert alert-danger">Неверное имя пользователя или пароль</div>
 

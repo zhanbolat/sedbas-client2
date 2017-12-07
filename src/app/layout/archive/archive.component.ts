@@ -29,6 +29,8 @@ export class ArchiveComponent implements OnInit {
     peoplerequests: ArchPeopleRequest[];
     activeIdString: string;
 
+    public searchString: string;
+
     //sorting
     key: string = 'number';
     reverse: boolean = false;
@@ -190,6 +192,19 @@ export class ArchiveComponent implements OnInit {
                     {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
                     {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
                     {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 6, forwhom: 'Test test2', inboxnumber: '534312', docownerfullname: 'Owner 2'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
+                    {outboxid: 3, forwhom: 'Test test1', inboxnumber: '1234123', docownerfullname: 'Owner name1'},
                     {outboxid: 6, forwhom: 'Test test2', inboxnumber: '534312', docownerfullname: 'Owner 2'}
                 ];
                 break;
@@ -270,6 +285,7 @@ export class ArchiveComponent implements OnInit {
 
     changeTab(id: string) {
         console.log('change tab method called with tab id: ' + id);
+        this.searchString = '';
         this.activeIdString = id;
         // this.loadTab1();
         this.loadTab();

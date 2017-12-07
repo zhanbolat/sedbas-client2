@@ -17,11 +17,29 @@
         </dd>
         <dt><span>Дата исполнения</span></dt>
         <dd>
-            <span>{{peoplerequest.executerdate}}</span>
+            <span>{{peoplerequest.executerdate | date: 'dd/MM/yyyy'}}</span>
         </dd>
         <dt><span>Адрес</span></dt>
         <dd>
             <span>{{peoplerequest.address}}</span>
+        </dd>
+        <dt *ngIf="peoplerequest.pagecount"><span>Количество страниц</span></dt>
+        <dd>
+            <span>{{peoplerequest.pagecount}}</span>
+        </dd>
+        <dt *ngIf="peoplerequest.documentcontentnote"><span>Краткое содержание</span></dt>
+        <dd>
+            <span>{{peoplerequest.documentcontentnote}}</span>
+        </dd>
+        <dt *ngIf="peoplerequest.note"><span>Заметки</span></dt>
+        <dd>
+            <span>{{peoplerequest.note}}</span>
+        </dd>
+        <dt *ngIf="attachments" ><span>Прикрепления</span></dt>
+        <dd>
+            <div *ngFor="let attachment of attachments">
+                <a [href]="attachment.fileUrl" [download]="attachment.filename">{{attachment.filename}}</a>
+            </div>
         </dd>
     </dl>
 

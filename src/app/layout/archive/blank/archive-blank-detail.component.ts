@@ -4,6 +4,10 @@ import {ArchBlank} from '../../../shared/model/arch-blank';
 // import {JhiLanguageService} from 'ng-jhipster';
 import {ArchBlankService} from './archive-blank.service';
 import {ActivatedRoute} from '@angular/router';
+import {ArchAttachment} from "../../../shared/model/arch-attachment";
+import {ArchAttachmentService} from "../attachment/archive-attachment.service";
+import {Response} from "@angular/http";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-archive-detail',
@@ -14,10 +18,13 @@ import {ActivatedRoute} from '@angular/router';
 export class ArchiveDetailComponent implements OnInit, OnDestroy {
     blank: ArchBlank;
     private subscription: any;
+    attachments: ArchAttachment[];
 
     constructor(
         private archBlankService: ArchBlankService,
-        private route: ActivatedRoute
+        private archAttachmentService: ArchAttachmentService,
+        private route: ActivatedRoute,
+        private sanitizer: DomSanitizer
     ) {
     }
 
@@ -31,6 +38,18 @@ export class ArchiveDetailComponent implements OnInit, OnDestroy {
     load(id) {
         this.archBlankService.find(id).subscribe((blank) => {
             this.blank = blank;
+
+            this.archAttachmentService.find(blank.blankid, 2).subscribe(
+                (res: Response) => {
+                    this.attachments = res.json();
+
+                    for (let i = 0; i < this.attachments.length; i++) {
+                        this.attachments[i].fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+                            window.URL.createObjectURL(new Blob([this.attachments[i].filecontent])));
+                    }
+                },
+                (res: Response) => console.log('Error while getting archive document attachment: ' + res.json().message)
+            );
         });
     }
     previousState() {
