@@ -56,34 +56,11 @@ export class ArchiveInboxDetailComponent implements OnInit, OnDestroy {
                     this.attachments = res.json();
 
                     for (let i = 0; i < this.attachments.length; i++) {
-                        console.log('File content' + i + ': ' + this.attachments[i].filecontent);
-                        console.log('File mimetype' + i + ': ' + this.attachments[i].mimetype);
 
                         const contentType = this.attachments[i].mimetype;
                         const b64Data = this.attachments[i].filecontent;
-                        // var byteCharacters = atob(b64Data);
-                        //
-                        // var byteNumbers = new Array(byteCharacters.length);
-                        // for (var j = 0; j < byteCharacters.length; j++) {
-                        //     byteNumbers[j] = byteCharacters.charCodeAt(j);
-                        // }
-                        //
-                        // var byteArray = new Uint8Array(byteNumbers);
-                        //
-                        // var blob = new Blob([byteArray], {type: contentType});
-
-
-                        // const bytes = new Uint8Array(b64Data.length);
-                        //
-                        // for (let j = 0; j < bytes.length; j++) {
-                        //     bytes[j] = b64Data.charCodeAt(j);
-                        // }
 
                         const blob = new Blob([this.base64ToArrayBuffer(b64Data)]);
-
-                        // console.log('Bytes: ' + bytes);
-                        // console.log('Blob = ' + new Blob([bytes], {type: contentType}));
-                        // console.log('Blob URL: ' + window.URL.createObjectURL(new Blob([bytes], {type: contentType})));
 
                         this.attachments[i].fileUrl = this.sanitizer.bypassSecurityTrustUrl(
                             // window.URL.createObjectURL(new Blob([this.attachments[i].filecontent], {type: contentType})));
@@ -105,10 +82,12 @@ export class ArchiveInboxDetailComponent implements OnInit, OnDestroy {
 
     base64ToArrayBuffer(base64) {
         const binaryString = window.atob(base64);
-        const binaryLen = binaryString.length;
+        const strArr = binaryString.substr(1, binaryString.length - 1).split(',');
+
+        const binaryLen = strArr.length; // binaryString.length;
         const bytes = new Uint8Array(binaryLen);
         for (let i = 0; i < binaryLen; i++) {
-            bytes[i] = binaryString.charCodeAt(i);
+            bytes[i] = Number(strArr[i]); // binaryString.charCodeAt(i);
         }
         return bytes;
     }

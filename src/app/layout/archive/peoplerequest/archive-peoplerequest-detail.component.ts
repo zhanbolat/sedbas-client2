@@ -44,8 +44,13 @@ export class ArchivePeopleRequestDetailComponent implements OnInit, OnDestroy {
                     this.attachments = res.json();
 
                     for (let i = 0; i < this.attachments.length; i++) {
-                        this.attachments[i].fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-                            window.URL.createObjectURL(new Blob([this.attachments[i].filecontent])));
+                        const b64Data = this.attachments[i].filecontent;
+
+                        const blob = new Blob([this.base64ToArrayBuffer(b64Data)]);
+
+                        this.attachments[i].fileUrl = this.sanitizer.bypassSecurityTrustUrl(
+                            // window.URL.createObjectURL(new Blob([this.attachments[i].filecontent], {type: contentType})));
+                            window.URL.createObjectURL(blob));
                     }
                 },
                 (res: Response) => console.log('Error while getting archive document attachment: ' + res.json().message)
@@ -58,5 +63,17 @@ export class ArchivePeopleRequestDetailComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+    }
+
+    base64ToArrayBuffer(base64) {
+        const binaryString = window.atob(base64);
+        const strArr = binaryString.substr(1, binaryString.length - 1).split(',');
+
+        const binaryLen = strArr.length; // binaryString.length;
+        const bytes = new Uint8Array(binaryLen);
+        for (let i = 0; i < binaryLen; i++) {
+            bytes[i] = Number(strArr[i]); // binaryString.charCodeAt(i);
+        }
+        return bytes;
     }
 }

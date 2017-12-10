@@ -48,17 +48,13 @@ export class ArchiveOutboxDetailComponent implements OnInit, OnDestroy {
                     // }
 
                     for (let i = 0; i < this.attachments.length; i++) {
-                        console.log('File content' + i + ': ' + this.attachments[i].filecontent);
-                        console.log('File mimetype' + i + ': ' + this.attachments[i].mimetype);
-
-                        const contentType = this.attachments[i].mimetype;
                         const b64Data = this.attachments[i].filecontent;
+
                         const blob = new Blob([this.base64ToArrayBuffer(b64Data)]);
 
                         this.attachments[i].fileUrl = this.sanitizer.bypassSecurityTrustUrl(
                             // window.URL.createObjectURL(new Blob([this.attachments[i].filecontent], {type: contentType})));
                             window.URL.createObjectURL(blob));
-
                     }
                 },
                 (res: Response) => console.log('Error while getting archive document attachment: ' + res.json().message)
@@ -75,10 +71,12 @@ export class ArchiveOutboxDetailComponent implements OnInit, OnDestroy {
 
     base64ToArrayBuffer(base64) {
         const binaryString = window.atob(base64);
-        const binaryLen = binaryString.length;
+        const strArr = binaryString.substr(1, binaryString.length - 1).split(',');
+
+        const binaryLen = strArr.length; // binaryString.length;
         const bytes = new Uint8Array(binaryLen);
         for (let i = 0; i < binaryLen; i++) {
-            bytes[i] = binaryString.charCodeAt(i);
+            bytes[i] = Number(strArr[i]); // binaryString.charCodeAt(i);
         }
         return bytes;
     }

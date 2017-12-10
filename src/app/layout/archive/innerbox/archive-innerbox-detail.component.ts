@@ -59,11 +59,8 @@ export class ArchiveInnerboxDetailComponent implements OnInit, OnDestroy {
                     // }
 
                     for (let i = 0; i < this.attachments.length; i++) {
-                        console.log('File content' + i + ': ' + this.attachments[i].filecontent);
-                        console.log('File mimetype' + i + ': ' + this.attachments[i].mimetype);
-
-                        const contentType = this.attachments[i].mimetype;
                         const b64Data = this.attachments[i].filecontent;
+
                         const blob = new Blob([this.base64ToArrayBuffer(b64Data)]);
 
                         this.attachments[i].fileUrl = this.sanitizer.bypassSecurityTrustUrl(
@@ -86,35 +83,13 @@ export class ArchiveInnerboxDetailComponent implements OnInit, OnDestroy {
 
     base64ToArrayBuffer(base64) {
         const binaryString = window.atob(base64);
-        const binaryLen = binaryString.length;
+        const strArr = binaryString.substr(1, binaryString.length - 1).split(',');
+
+        const binaryLen = strArr.length; // binaryString.length;
         const bytes = new Uint8Array(binaryLen);
         for (let i = 0; i < binaryLen; i++) {
-            bytes[i] = binaryString.charCodeAt(i);
+            bytes[i] = Number(strArr[i]); // binaryString.charCodeAt(i);
         }
         return bytes;
-    }
-
-    b64toBlob(b64Data, contentType, sliceSize) {
-        contentType = contentType || '';
-        sliceSize = sliceSize || 512;
-
-        var byteCharacters = atob(b64Data);
-        var byteArrays = [];
-
-        for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-            var slice = byteCharacters.slice(offset, offset + sliceSize);
-
-            var byteNumbers = new Array(slice.length);
-            for (var i = 0; i < slice.length; i++) {
-                byteNumbers[i] = slice.charCodeAt(i);
-            }
-
-            var byteArray = new Uint8Array(byteNumbers);
-
-            byteArrays.push(byteArray);
-        }
-
-        var blob = new Blob(byteArrays, {type: contentType});
-        return blob;
     }
 }
